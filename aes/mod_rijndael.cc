@@ -72,6 +72,14 @@ const estado emult = {
   {Byte(string("00000011")), Byte(string("00000001")), Byte(string("00000001")), Byte(string("00000010"))}
 };
 
+  // Matriz para la operación inversa
+const estado invMat = {
+  {Byte(string("00001110")), Byte(string("00001011")), Byte(string("00001101")), Byte(string("00001001"))},
+  {Byte(string("00001001")), Byte(string("00001110")), Byte(string("00001011")), Byte(string("00001101"))},
+  {Byte(string("00001101")), Byte(string("00001001")), Byte(string("00001110")), Byte(string("00001011"))},
+  {Byte(string("00001011")), Byte(string("00001101")), Byte(string("00001001")), Byte(string("00001110"))}
+};
+
 const int sbox[256] =   {
   0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
   0xca, 0x82, 0xc9, 0x7d, 0xfa, 0x59, 0x47, 0xf0, 0xad, 0xd4, 0xa2, 0xaf, 0x9c, 0xa4, 0x72, 0xc0,
@@ -345,28 +353,23 @@ estado mixColums (estado e) {
 }
 
 estado InvMixColumns(estado e) {
-  // Matriz para la operación inversa
-  const estado invMat = {
-  {Byte(string("00001110")), Byte(string("00001011")), Byte(string("00001101")), Byte(string("00001001"))},
-  {Byte(string("00001001")), Byte(string("00001110")), Byte(string("00001011")), Byte(string("00001101"))},
-  {Byte(string("00001101")), Byte(string("00001001")), Byte(string("00001110")), Byte(string("00001011"))},
-  {Byte(string("00001011")), Byte(string("00001101")), Byte(string("00001001")), Byte(string("00001110"))}
-  };
-
   // Realizamos la operación inversa para cada columna de la matriz
+  estado out;
+  out.resize(4);
+  for (int i = 0; i < 4; i++)
+    out[i].resize(4);
+
   for (int i = 0; i < 4; i++) {
-    estado col;
-    col.resize(4);
     for (int j = 0; j < 4; j++) {
-      col[j][0] = e[j][i];
-    }
-    col = mixColums(col);
-    for (int j = 0; j < 4; j++) {
-      e[j][i] = col[j][0] ^ invMat[j][i];
+      Byte b = Byte(string("00000000"));
+      for (int k = 0; k < 4; k++) {
+        b ^= full_mult(e[k][i], invMat[j][k], AES_byte);
+      }
+      out[j][i] = b;
     }
   }
 
-  return e;
+  return out;
 }
 
 void assignCol(estado& e, columna n, int pos) {
@@ -469,6 +472,7 @@ estado invRijndael (estado e, estado c) {
   // Etapa inicial
   vector<estado> subc = expanseKey(c);  // Generamos las 10 subclaves
   estado out = addRoundKey(e, subc[10]);       // Inversión de AddRoundKey clave original
+  showIter(out, c, 10);
 
   // 9 iteraciones
   for (int i = nIter - 1; i >= 1; i--) {
@@ -477,12 +481,14 @@ estado invRijndael (estado e, estado c) {
     out = InvSubBytes(out); // Inversión de SubBytes
     out = addRoundKey(out, subc[i]); // Inversión de AddRoundKey clave de ronda
     out = InvMixColumns(out); // Inversión de MixColumns
+    showIter(out, subc[i], i);
 
   }
   // Etapa final
   out = InvShiftRows(out); // Inversión de ShiftRows
   out = InvSubBytes(out); // Inversión de SubBytes
   out = addRoundKey(out, c); // Inversión de AddRoundKey clave original
+  showIter(out, subc[10], 0);
 
   return out;
 }
@@ -582,7 +588,7 @@ int main (void){
         string Clave, Origen;
         cout << "Introduzca la clave: " << endl;
         cin >> Clave;
-        cout << "Introduzca el texto original: " << endl;
+        cout << "Introduzca el texto encriptado: " << endl;
         cin >> Origen;
         estado clave  = claveToEstado(Clave);
         showEstado(clave);
