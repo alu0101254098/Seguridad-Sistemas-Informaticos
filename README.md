@@ -4,4 +4,4 @@
 - [x] **ChaCha20**
 - [x] **C/A generator**
 - [x] **SNOW-AES multiplication**
-- [x] **AES-Rinjdael**
+- [x] **AES-Rijndael**
