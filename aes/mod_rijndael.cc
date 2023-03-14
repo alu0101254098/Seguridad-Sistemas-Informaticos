@@ -450,7 +450,7 @@ estado Rijndael (estado e, estado  c) {
   showIter(out, c, 0);
 
   // 9 iteraciones
-  for (int i = 1; i < nIter; i++) {
+  for (int i = 1; i < 10; i++) {
 
     out = SubBytes(out);
     out = shiftRows(out);
@@ -459,11 +459,6 @@ estado Rijndael (estado e, estado  c) {
     showIter(out, subc[i], i);
 
   }
-  // Etapa final
-  out = SubBytes(out);
-  out = shiftRows(out);
-  out = addRoundKey(out, subc[10]);
-  showIter(out, subc[10], 10);
 
   return out;
 }
