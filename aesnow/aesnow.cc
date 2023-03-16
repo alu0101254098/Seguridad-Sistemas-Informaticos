@@ -99,7 +99,7 @@ int main (void){
         cin >> b1;
         cout << "b2" << endl;
         cin >> b2;
-        cout << full_mult(Byte(HexToBin("e1")), Byte(HexToBin("92")), AES_byte) << endl;
+        cout << full_mult(Byte(HexToBin(b1)), Byte(HexToBin(b2)), AES_byte) << endl;
         break;
       }
       case 2:{
@@ -107,7 +107,7 @@ int main (void){
         cin >> b1;
         cout << "b2" << endl;
         cin >> b2;
-        cout << full_mult(Byte(HexToBin(b1)), (Byte(HexToBin(b1))), SNOW_byte) << endl;
+        cout << full_mult(Byte(HexToBin(b1)), (Byte(HexToBin(b2))), SNOW_byte) << endl;
         break;
       }
       case 0:
