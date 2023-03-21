@@ -50,18 +50,6 @@ int emptyString(string s) {
   return c;
 }
 
-// Convierte un estado dado en una string por filas
-// a por columnas y a la inversa
-string shuffleBytes(string x) {
-  string out;
-  for (int i = 0; i < 4; i++) {
-    for (int j = 0; j < 4; j++) {
-      out += x.substr((i + 4 * j)% x.size(), 2);;
-    }
-  }
-  return out;
-}
-
 CadenaBloques CBC(CadenaBloques plaintext, estado clave, estado IV) {
 
   CadenaBloques CipherTexts;
@@ -94,7 +82,7 @@ CadenaBloques stealingCBC(CadenaBloques plaintext, estado clave, estado IV, int 
 
   // Intercambio de valores
   CipherTexts[i - 1] = lastState;     // Este encadenamiento de funciones, es para convertir un estado dado por filas a uno dado por columnas
-  CipherTexts[i] = cadenaToEstado(estadoToCadena((cadenaToEstado(prevStateData.erase(32 - lastBytesLeft)))));
+  CipherTexts[i] = cadenaToEstado(prevStateData.erase(32 - lastBytesLeft));
 
   return CipherTexts;
 }
