@@ -5,3 +5,5 @@
 - [x] **C/A generator**
 - [x] **SNOW-AES multiplication**
 - [x] **AES-Rijndael**
+- [x] **CBC**
+- [x] **Diffie-Hellman**
