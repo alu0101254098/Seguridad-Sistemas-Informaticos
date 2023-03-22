@@ -77,7 +77,7 @@ int main (void){
         DiffieHellman(13, 4, 5, 2, 8);
         DiffieHellman(43, 23, 25, 33, 18);
         DiffieHellman(113, 43, 54, 71, 28);
-        DiffieHellman(31, 2, 771, 342, 28);
+        DiffieHellman(97, 5, 2, 3, 28);
         break;
       }
       case 0:
@@ -88,8 +88,6 @@ int main (void){
         break;
     }
   }
-  //cambiar el nombre a una carpeta en bash
-  //mv -v "old name" "new name"
 
   return 0;
 }
