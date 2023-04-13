@@ -7,3 +7,4 @@
 - [x] **AES-Rijndael**
 - [x] **CBC**
 - [x] **Diffie-Hellman**
+- [x] **RSA**
