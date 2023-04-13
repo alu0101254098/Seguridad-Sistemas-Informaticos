@@ -3,7 +3,7 @@
 #include <vector>
 #include <cassert>
 #include <bitset>
-
+ 
 using namespace std;
 
 typedef bitset<8> Byte;
