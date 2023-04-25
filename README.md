@@ -8,3 +8,5 @@
 - [x] **CBC**
 - [x] **Diffie-Hellman**
 - [x] **RSA**
+- [x] **Curva Elíptica**
+- [x] **RSA Sign**
