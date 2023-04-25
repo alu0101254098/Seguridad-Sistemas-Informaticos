@@ -36,7 +36,7 @@ class RSA {
     Dlong EuclideExtendido(Dlong a, Dlong b);
     bool lehmanPeralta(Dlong p);
     vector<Dlong> codificarMensaje(string mensaje);
-    string decodificarMensaje(vector<Dlong> mensaje);
+    string decodificarMensaje(Dlong mensaje);
     Dlong blockCypher(string block, Dlong blockSize);
     string blockDecypher(Dlong tmp, Dlong blockSize);
     void printData();
@@ -89,7 +89,8 @@ void RSA::printDataSign(){
   cout << "------------------------------------------------" << endl;
   cout << "Calculamos la potencia: " << potencia << endl;
   cout << "Decodificamos obteniendo el mensaje original: " << "<";
-  cout << blockDecypher(2, (Dlong)std::log(_n) / (Dlong)std::log(alfabeto.size())) << ">" << endl;
+  cout << decodificarMensaje({potencia});
+  cout << ">" << endl;
   cout << "------------------------------------------------" << endl;
 }
 
@@ -118,14 +119,12 @@ vector<Dlong> RSA::codificarMensaje(string mensaje) {
   return out;
 }
 //Decofificaciom de RSA
-string RSA::decodificarMensaje(vector<Dlong> mensaje){
+string RSA::decodificarMensaje(Dlong mensaje){
   Dlong blockSize = (Dlong)std::log(_n) / (Dlong)std::log(alfabeto.size());
   string out = "";
   Dlong temp;
-  for (Dlong i = 0; i < mensaje.size(); i++) {
-    temp = ExponenciacionRapida(mensaje[i], _d, _n);
-    out += blockDecypher(temp, blockSize);
-  }
+  temp = mensaje;
+  out = blockDecypher(temp, blockSize);
   texto_origin = out;
   return out;
 }
