@@ -9,4 +9,5 @@
 - [x] **Diffie-Hellman**
 - [x] **RSA**
 - [x] **Curva Elíptica**
+- [x] **GPG**
 - [x] **RSA Sign**
