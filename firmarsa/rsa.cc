@@ -75,11 +75,11 @@ void RSA::printData() {
   cout << "d  = " << _d << endl;
   cout << "e  = " << _e << endl;
   cout << "Mensaje codificado : " << "< ";
-  for (Dlong i = 0; i < mensaje_codificado.size(); i++)
+  for (long unsigned int i = 0; i < mensaje_codificado.size(); i++)
     cout << mensaje_codificado[i] << " ";
   cout << ">" << endl;
   cout << "Mensaje cifrado    : " << "< ";
-  for (Dlong i = 0; i < mensaje_cifrado.size(); i++)
+  for (long unsigned int i = 0; i < mensaje_cifrado.size(); i++)
     cout << mensaje_cifrado[i] << " ";
   cout << ">" << endl;
   cout << "------------------------------------------------" << endl;
@@ -100,14 +100,14 @@ vector<Dlong> RSA::codificarMensaje(string mensaje) {
 
   // Rellenamos con X el tam no sea multiplo del tamaño de bloque
   if ((mensaje.size() % blockSize) == 0) {
-    for (int i = 0; i < mensaje.size() % blockSize; i++)
+    for (long unsigned int i = 0; i < mensaje.size() % blockSize; i++)
       mensaje.push_back('X');
   }
 
   vector<Dlong> out;
 
   Dlong temp;
-  for (Dlong i = 0; i < mensaje.size(); i += blockSize)  {
+  for (long unsigned int i = 0; i < mensaje.size(); i += blockSize)  {
     string block = mensaje.substr(i, blockSize);
     temp = blockCypher(block, blockSize);
     out.push_back(temp);
@@ -182,7 +182,7 @@ Dlong RSA::EuclideExtendido(Dlong a, Dlong b) {
 }
 
 bool RSA::lehmanPeralta(Dlong p) {
-	for (Dlong i = 0; i < primerosPrimos.size(); i++)
+	for (long unsigned int i = 0; i < primerosPrimos.size(); i++)
 		if ((p % primerosPrimos[i] == 0) && (p != primerosPrimos[i]))
 			return false;
 
@@ -194,7 +194,7 @@ bool RSA::lehmanPeralta(Dlong p) {
 
 	// Ai^((p-1)/2) % p. Todos deben dar 1, desde que 1 falle, no lo es.
 	bool compuesto = true;
-	for (Dlong i = 0; i < randPrimes.size(); i++)
+	for (long unsigned int i = 0; i < randPrimes.size(); i++)
 		if (ExponenciacionRapida(randPrimes[i], (p - 1) / 2, p) != 1) {
 			compuesto = false;
 			break;
@@ -205,7 +205,7 @@ bool RSA::lehmanPeralta(Dlong p) {
 
 	// Si existe un i tal que Ai^((p-1)/2) % p != -1, es compuesto.
 	Dlong temp = 0;
-	for (Dlong i = 0; i < randPrimes.size(); i++) {
+	for (long unsigned int i = 0; i < randPrimes.size(); i++) {
 		temp = ExponenciacionRapida(randPrimes[i], (p - 1) / 2, p);
 		if (temp != 1)
 			temp -= p;
