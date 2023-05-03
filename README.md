@@ -1,4 +1,4 @@
-# Practicas de Seguridad en Sistemas Informaticos
+# Prácticas de Seguridad en Sistemas Informáticos
 
 - [x] **Vigenere** 
 - [x] **ChaCha20**
@@ -8,7 +8,7 @@
 - [x] **CBC**
 - [x] **Diffie-Hellman**
 - [x] **RSA**
-- [x] **Curva Elíptica**
+- [x] **Eliptic Curve**
 - [x] **GPG**
 - [x] **RSA Sign**
 - [x] **Menu with all the protocols**
