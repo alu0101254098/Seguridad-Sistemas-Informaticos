@@ -11,3 +11,4 @@
 - [x] **Curva Elíptica**
 - [x] **GPG**
 - [x] **RSA Sign**
+- [x] **Menu with all the protocols**
