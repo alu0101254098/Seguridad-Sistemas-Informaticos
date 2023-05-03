@@ -4,6 +4,8 @@
 #include "include/aesnow.cc"
 #include "include/cbc.cc"
 #include "include/diffie-hellman.cc"
+#include "include/rsa.cc"
+#include "include/eliptica.cc"
 
 
 int main(void){
@@ -94,12 +96,12 @@ int main(void){
       showEstado(Rijndael(origen, clave));
     }
     else if(opcion == 6){
-      estado key  = cadenaToEstado("000102030405060708090a0b0c0d0e0f");
-      estado b1  = cadenaToEstado("00112233445566778899aabbccddeeff");
+      estado key  = cadenaToEstado("9dc2c84a37850c11699818605f47958c");
+      estado b1  = cadenaToEstado("2e586692e647f5028ec6fa47a55a2aab");
       estado b2  = cadenaToEstado("00000000000000000000000000000000");
       string ib2cad = "000000000000000000000000000000";
       estado ib2 = cadenaToEstado(ib2cad);
-      estado iv  = cadenaToEstado("00000000000000000000000000000000");
+      estado iv  = cadenaToEstado("256953b2feab2a04ae0180d8335bbed6");
       CadenaBloques cb = {b1, ib2};
       showCBCSecuence(CBC(cb, key, iv));
       showCBCSecuence(stealingCBC(cb, key, iv, emptyString(ib2cad)));
@@ -118,6 +120,30 @@ int main(void){
       cin >> m;
       cout << "Clave compartida: " << endl;
       DiffieHellman(p, alpha, xa, xb, m);
+    }
+    else if(opcion == 8){
+      string mensaje;
+      long p, q, d;
+      cout << "Mensaje > ";
+      cin >> mensaje;
+      cout << "P > ";
+      cin >> p;
+      cout << "q > ";
+      cin >> q;
+      cout << "d > ";
+      cin >> d;
+      RSA encoder(mensaje, p, q, d);
+      encoder.printData();
+    }
+    else if(opcion == 9){
+      std::cout << "Bienvenido al algorimo" << std::endl;
+      Eliptica* ptr_Eliptica = new Eliptica();
+      ptr_Eliptica->algoritmo();
+      delete ptr_Eliptica;
+    }
+    else if(opcion == 10){
+      RSA encoder(11, 7, 39);
+      encoder.printDataSign();
     }
     else if(opcion == 0){
       std::cout << "Saliendo..." << std::endl;
