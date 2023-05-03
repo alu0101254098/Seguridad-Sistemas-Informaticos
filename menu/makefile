@@ -7,6 +7,5 @@ all : menu.cc
 	$(CC) $(CFLAGS) -o $(EXEC).out menu.cc
 clean :
 	rm -rf $(EXEC).out
-	rm build/*.o
 
 .PHONY : clean
